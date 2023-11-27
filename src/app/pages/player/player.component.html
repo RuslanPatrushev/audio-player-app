@@ -1,0 +1,94 @@
+<div class="container">
+  <mat-toolbar color="primary" class="main-toolbar">
+    <span>{{player.title}}</span>
+  </mat-toolbar>
+
+  <div class="content">
+    <table mat-table [dataSource]="files" class="mat-elevation-z8">
+      <ng-container [matColumnDef]="player.table.columns.id.def">
+        <th mat-header-cell *matHeaderCellDef>
+          {{player.table.columns.id.title}}
+        </th>
+        <td mat-cell *matCellDef="let file">
+          {{file.id}}
+        </td>
+      </ng-container>
+      <ng-container [matColumnDef]="player.table.columns.name.def">
+        <th mat-header-cell *matHeaderCellDef>
+          {{player.table.columns.name.title}}
+        </th>
+        <td mat-cell *matCellDef="let file">
+          {{file.name}}
+        </td>
+      </ng-container>
+      <ng-container [matColumnDef]="player.table.columns.artist.def">
+        <th mat-header-cell *matHeaderCellDef>
+          {{player.table.columns.artist.title}}
+        </th>
+        <td mat-cell *matCellDef="let file">
+          {{file.artist}}
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        (click)="openFile(file)"
+        [class.row-is-active]="file.id===currentFile.id"
+        *matRowDef="let file; columns: displayedColumns;"
+      ></tr>
+    </table>
+
+  </div>
+
+  <div class="media-footer">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <div class="logo">
+          <div>{{currentFile.name}}</div>
+        </div>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        {{ state.readableCurrentTime }}
+        <mat-slider class="time-slider"
+                    min="0"
+                    [max]="state.duration"
+                    step="0.1"
+                    [disabled]="false"
+                    (input)="onSliderChangeEnd($event)"
+                    color="accent"
+        >
+          <input matSliderThumb
+                 [(ngModel)]="state.currentTime"
+          >
+        </mat-slider>
+        {{ state.readableDuration }}
+      </mat-toolbar-row>
+
+      <mat-toolbar-row class="media-action-bar">
+        <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
+          <mat-icon>
+            {{player.toolbar.icons.prev}}
+          </mat-icon>
+        </button>
+
+        <button mat-button (click)="play()" [disabled]="state.error" *ngIf="!state.playing">
+          <mat-icon>
+            {{player.toolbar.icons.play}}
+          </mat-icon>
+        </button>
+
+        <button mat-button (click)="pause()" *ngIf="state?.playing">
+          <mat-icon>
+            {{player.toolbar.icons.pause}}
+          </mat-icon>
+        </button>
+
+        <button mat-button [disabled]="isLastPlaying()" (click)="next()">
+          <mat-icon>
+            {{player.toolbar.icons.next}}
+          </mat-icon>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+</div>

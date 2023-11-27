@@ -1,0 +1,48 @@
+.container {
+
+  .content {
+    overflow-y: scroll;
+    height: calc(100vh - 64px - 208px);
+  }
+
+  .media-footer {
+    height: 208px;
+    background-color: #3f51b5;
+    .logo {
+      margin: 2.5rem;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    bottom: 0;
+    width: 100%;
+
+    .time-slider {
+      width: 100%;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .media-action-bar {
+      width: 100%;
+      padding: 2.5rem;
+      justify-content: center;
+
+      .mat-icon {
+        height: 48px;
+        width: 48px;
+        font-size: 48px;
+      }
+    }
+  }
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.row-is-active {
+  font-weight: bold;
+}
